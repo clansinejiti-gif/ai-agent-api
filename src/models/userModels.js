@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
   learningStyle: String,
 },
 {
-    timeseries: true
+    timestamps: true
 });
 
 export default mongoose.model("User", userSchema)
