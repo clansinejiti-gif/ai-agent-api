@@ -1,10 +1,6 @@
-import express from 'express';
-import 'dotenv/config';
-import connectToDB from './src/config/db.js';
-
-const app = express()
-
-app.use(express.json());
+import app from './src/app.js'
+import "dotenv/config";
+import connectToDB from "./src/config/db.js";
 
 connectToDB();
 const PORT = process.env.PORT;
