@@ -4,8 +4,8 @@ import { roleCheck } from '../middlewares/roleChecker.js';
 
 const router = Router();
 
-router.get('/books', getBooks)
+router.get('/', getBooks)
 
-router.post("/books", roleCheck, postBooks);
+router.post("/", roleCheck, postBooks);
 
 export default router
