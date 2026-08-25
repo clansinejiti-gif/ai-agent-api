@@ -55,6 +55,7 @@ export const postBooks = async (req, res) => {
     const findIfExists = await Books.findOne({
       author: author.trim(),
       title: title.trim(),
+      category: category.trim()
     });
     if(findIfExists){
         return res.status(401).json({ 
