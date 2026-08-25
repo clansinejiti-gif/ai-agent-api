@@ -29,12 +29,12 @@ export const getBooks = async (req, res) => {
       filter.tags = { $in: tagsArray };
     }
 
-    const books = await Books.find(filter).sort({ createdAt: -1 });
+    const books = await Books.find(filter).sort({ createdAt: -1 }).select('-_id -createdAt -updatedAt -__v');
 
     res.status(200).json({
       success: true,
-      count: books.length,
-      data: books,
+      total: books.length,
+      data: books
     });
   } catch (error) {
     errorResponse(res, error.message )
@@ -52,6 +52,16 @@ export const postBooks = async (req, res) => {
     if(!title || !author || !category || !skillLevel || !tags) {
         errorResponse(res, "Please fill in all fields", )
     }
+    const findIfExists = await Books.findOne({
+      author: author.trim(),
+      title: title.trim(),
+    });
+    if(findIfExists){
+        return res.status(401).json({ 
+            success: false,
+            message: "Book is already in collection"
+        });
+    }
     const createBook = await new Books({
         title,
         author,
@@ -63,7 +73,7 @@ export const postBooks = async (req, res) => {
     const data = {id: createBook._id, title: createBook.title}
     successResponse(res, data)
 } catch(err){
-    errorResponse(res);
+    errorResponse(res, 'Something went wrong');
 }
 }
 
