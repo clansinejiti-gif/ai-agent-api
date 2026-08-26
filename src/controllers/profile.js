@@ -1,5 +1,6 @@
 import { Session } from "express-session";
 import User from "../models/userModels.js";
+import { updateProfile } from "../services/profileService.js";
 
 const authMe = async (req, res) => {
   try {
@@ -62,4 +63,38 @@ const profileMe = async (req, res) => {
   }
 };
 
-export { authMe, profileMe };
+const profilePutMe = async (req, res, next) => {
+  try {
+    if (req.session.role !== "student") {
+      return res
+        .status(403)
+        .json({
+          success: false,
+          error: { code: "FORBIDDEN", message: "Access Denied" },
+        });
+    }
+
+    const result = await updateProfile(req.session.userId, req.body);
+
+    if (!result.success) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          error: { code: "NOT_FOUND", message: result.message },
+        });
+    }
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Profile updated successfully",
+        data: result.data,
+      });
+  } catch (err) {
+    next(err); // let errorHandler format it
+  }
+};
+
+export { authMe, profileMe, profilePutMe };
