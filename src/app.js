@@ -1,6 +1,7 @@
 import express from "express";
 import errorHandler from "../src/middlewares/errorHandler.js";
 import authRoutes from "../src/routes/authRoutes.js";
+import profileRoutes from "../src/routes/profileRoutes.js"
 import "dotenv/config";
 import sessionConfig from "./config/sessions.js";
 import { setupSwagger } from "../src/config/swagger.js";
@@ -16,6 +17,8 @@ setupSwagger(app);
 app.use("/api/v1/auth", authRoutes);
 
 app.use("/api/v1/books", booksRoutes);
+
+app.use("/api/v1/profiles", profileRoutes);
 
 app.use(errorHandler);
 
