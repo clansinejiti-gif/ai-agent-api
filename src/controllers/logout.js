@@ -5,7 +5,10 @@ const logout = (req, res) => {
         return res.status(500).json("could not logout");
       }
 
-      res.status(200).json("Logout Succesfull");
+      res.status(200).json({
+        success: true,
+        message: "Session terminated successfully",
+      });
     });
   } catch (err) {
     console.error("unexpected error", err);
