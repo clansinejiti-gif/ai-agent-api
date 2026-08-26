@@ -83,11 +83,10 @@ ai-agent-api/
 | Runtime            | Node.js ≥ 18                        |
 | Framework          | Express.js                          |
 | Authentication     | express-session (HTTP-only cookies) |
-| Session Store      | connect-mongo / Redis / SQLite      |
+| Session Store      | connect-mongo
 | Password Hashing   | bcrypt                              |
 | Validation         | Joi / express-validator             |
 | API Documentation  | swagger-jsdoc + swagger-ui-express  |
-| Logging            | Winston / Morgan                    |
 
 > **Note:** JWTs are **not** used. Session-based authentication is mandatory.
 
@@ -96,8 +95,8 @@ ai-agent-api/
 ## Prerequisites
 
 - Node.js ≥ 18
-- npm or yarn
-- MongoDB (recommended) **or** Redis **or** SQLite for persistent session storage
+- npm
+- MongoDB 
 - Git
 
 ---
@@ -107,7 +106,7 @@ ai-agent-api/
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/clansinejiti-gif/ai-agent-api.git
 cd ai-agent-api
 ```
 
@@ -134,17 +133,11 @@ PORT=3000
 
 # Session
 SESSION_SECRET=your-super-secret-session-key-change-in-production
-SESSION_MAX_AGE=86400000          # 24 hours in milliseconds
 
-# Database / Session Store (choose one)
-# Option 1: MongoDB (recommended)
+
+# Database / Session Store
+# Option 1: MongoDB 
 MONGODB_URI=mongodb://localhost:27017/ai_recommendation_engine
-
-# Option 2: Redis
-# REDIS_URL=redis://localhost:6379
-
-# Option 3: SQLite (development only)
-# SQLITE_PATH=./data/sessions.sqlite
 
 # Cookie settings (production)
 COOKIE_SECURE=true                # set to true in production (HTTPS)
@@ -154,25 +147,12 @@ COOKIE_HTTP_ONLY=true
 
 ### 4. Database / Session Store Setup
 
-#### Using MongoDB (recommended)
+#### Using MongoDB
 
 1. Start MongoDB locally or use a cloud instance (MongoDB Atlas).
 2. The application will automatically create the necessary collections on first run.
 3. Session store is backed by `connect-mongo`.
 
-#### Using Redis
-
-1. Start a Redis server.
-2. Update `REDIS_URL` in `.env`.
-3. The session middleware will use `connect-redis`.
-
-#### Using SQLite (development only)
-
-1. Ensure the `data/` directory exists.
-2. Set `SQLITE_PATH` in `.env`.
-3. Sessions will be persisted in the SQLite file.
-
-> No traditional migration scripts are required for the current schema (documents are created on demand). If you later add a relational database, place migration commands here.
 
 ### 5. Run the Application
 
