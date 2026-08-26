@@ -18,7 +18,8 @@ const booksSchema = new mongoose.Schema({
   skillLevel: {
     type: String,
   },
-  tags: [String]
+  tags: [String],
+  publishedBy: String,
 },
 {
     timestamps: true

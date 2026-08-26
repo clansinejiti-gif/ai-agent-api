@@ -29,7 +29,7 @@ export const getBooks = async (req, res) => {
       filter.tags = { $in: tagsArray };
     }
 
-    const books = await Books.find(filter).sort({ createdAt: -1 }).select('-_id -createdAt -updatedAt -__v');
+    const books = await Books.find(filter).sort({ createdAt: -1 }).select('-_id -createdAt -updatedAt -__v -publishedBy');
 
     res.status(200).json({
       success: true,
@@ -63,12 +63,14 @@ export const postBooks = async (req, res) => {
             message: "Book is already in collection"
         });
     }
+    const publishedBy = req.session.email;
     const createBook = await new Books({
         title,
         author,
         category,
         skillLevel,
-        tags
+        tags,
+        publishedBy
     }).save();
 
     const data = {id: createBook._id, title: createBook.title}
