@@ -1,6 +1,6 @@
 import { registerNewUser } from "../services/authService.js";
 
-const registerUser = async (req, res) => {
+const registerUser = async (req, res, next) => {
   try {
     const result = await registerNewUser(req.body);
 
@@ -9,10 +9,10 @@ const registerUser = async (req, res) => {
     }
 
     res.status(201).json("Account Created Successfully");
-    console.log(result)
+    console.log(result);
   } catch (err) {
     console.error("register error:", err);
-    res.status(500).json({ error: "Something went wrong during registration" });
+    next(err);
   }
 };
 

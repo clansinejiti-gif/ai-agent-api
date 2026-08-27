@@ -2,7 +2,7 @@ import { Session } from "express-session";
 import User from "../models/userModels.js";
 import { updateProfile } from "../services/profileService.js";
 
-const authMe = async (req, res) => {
+const authMe = async (req, res, next) => {
   try {
     const result = await User.findById(req.session.userId);
 
@@ -21,11 +21,11 @@ const authMe = async (req, res) => {
       .json({ success: true, data: { id, email, role, sessionExpires } });
   } catch (err) {
     console.error("login error:", err);
-    res.status(500).json({ error: "Something went wrong getting the profile" });
+    next(err);
   }
 };
 
-const profileMe = async (req, res) => {
+const profileMe = async (req, res, next) => {
   try {
     const result = await User.findById(req.session.userId);
 
@@ -59,41 +59,35 @@ const profileMe = async (req, res) => {
     });
   } catch (err) {
     console.error("login error:", err);
-    res.status(500).json({ error: "Something went wrong getting the profile" });
+    next(err);
   }
 };
 
 const profilePutMe = async (req, res, next) => {
   try {
     if (req.session.role !== "student") {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          error: { code: "FORBIDDEN", message: "Access Denied" },
-        });
+      return res.status(403).json({
+        success: false,
+        error: { code: "FORBIDDEN", message: "Access Denied" },
+      });
     }
 
     const result = await updateProfile(req.session.userId, req.body);
 
     if (!result.success) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          error: { code: "NOT_FOUND", message: result.message },
-        });
+      return res.status(404).json({
+        success: false,
+        error: { code: "NOT_FOUND", message: result.message },
+      });
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Profile updated successfully",
-        data: result.data,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: result.data,
+    });
   } catch (err) {
-    next(err); // let errorHandler format it
+    next(err);
   }
 };
 

@@ -8,13 +8,13 @@ export const getCareerTracks = async (req, res, next) => {
     const tracks = await getTracks(domain);
 
     return successResponse(res, tracks);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
 
-const registerTrack = async (req, res) => {
+const registerTrack = async (req, res, next) => {
   try {
     const result = await createTrack(req.body);
 
@@ -25,7 +25,7 @@ const registerTrack = async (req, res) => {
     res.status(201).json({result});
   } catch (err) {
     console.error("track error:", err);
-    res.status(500).json({ error: "Something went wrong during creation" });
+    next(err)
   }
 };
 

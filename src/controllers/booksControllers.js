@@ -5,7 +5,7 @@ import {
   checkBookExistsService,
 } from "../services/bookServices.js";
 
-export const getBooks = async (req, res) => {
+export const getBooks = async (req, res, next) => {
   try {
     const { title, author, category, skillLevel, tags } = req.query;
     const filter = {};
@@ -25,12 +25,13 @@ export const getBooks = async (req, res) => {
       total: books.length,
       data: books,
     });
-  } catch (error) {
-    errorResponse(res, error.message);
+  } catch (err) {
+    errorResponse(res, err.message);
+    next(err)
   }
 };
 
-export const postBooks = async (req, res) => {
+export const postBooks = async (req, res, next) => {
   try {
     const { title, author, category, skillLevel, tags } = req.body;
     if (!title || !author || !category || !skillLevel || !tags) {
@@ -55,5 +56,6 @@ export const postBooks = async (req, res) => {
     successResponse(res, data);
   } catch (err) {
     errorResponse(res, "Something went wrong");
+    next(err)
   }
 };

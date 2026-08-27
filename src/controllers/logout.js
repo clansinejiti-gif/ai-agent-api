@@ -1,4 +1,4 @@
-const logout = (req, res) => {
+const logout = (req, res, next) => {
   try {
     req.session.destroy((err) => {
       if (err) {
@@ -12,7 +12,7 @@ const logout = (req, res) => {
     });
   } catch (err) {
     console.error("unexpected error", err);
-    res.status(500).json("Something wnt wrong during logout");
+    next(err)
   }
 };
 

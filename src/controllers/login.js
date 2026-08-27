@@ -1,6 +1,6 @@
 import { loginUser } from "../services/authService.js"
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
     try {
         const result = await loginUser(req.body);
 
@@ -15,7 +15,7 @@ const login = async (req, res) => {
         res.status(200).json({ success: true, message: "Login successful", data: result.data });
     } catch(err) {
         console.error("login error:", err);
-        res.status(500).json({ error: "Something went wrong with login" });
+        next(err);
     }
 }
 
