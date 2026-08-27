@@ -13,7 +13,7 @@ const sessionConfig = session({
     cookie: {
         maxAge: 7*24*60*60*1000,
         httpOnly: true,
-        secure: false, //will be changed to true upon deployment
+        secure: true, //changed to true
         sameSite: 'strict'
     }
 })
