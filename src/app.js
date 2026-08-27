@@ -7,6 +7,7 @@ import sessionConfig from "./config/sessions.js";
 import { setupSwagger } from "../src/config/swagger.js";
 import booksRoutes from "../src/routes/booksRoutes.js";
 import careerRoutes from "./routes/careerRoutes.js";
+import aiRecommendationRoutes from "./routes/aiRecommendationRoutes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/v1/books", booksRoutes);
 app.use("/api/v1/profiles", profileRoutes);
 
 app.use("/api/v1/careers", careerRoutes);
+app.use("/api/v1/ai/recommendations", aiRecommendationRoutes);
 
 app.use(errorHandler);
 
