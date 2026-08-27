@@ -1,36 +1,7 @@
-const careerTracks = [
-  {
-    trackId: "tr_backend_01",
-    title: "Backend Engineering",
-    domain: "Software Engineering",
-    keySkills: ["Node.js", "SQL/NoSQL", "System Design", "API Security"],
-    industryDemand: "High",
-  },
-  {
-    trackId: "tr_frontend_01",
-    title: "Frontend Engineering",
-    domain: "Software Engineering",
-    keySkills: ["React", "TypeScript", "CSS Architecture", "Performance"],
-    industryDemand: "High",
-  },
-  {
-    trackId: "tr_data_01",
-    title: "Data Engineering",
-    domain: "Data Science",
-    keySkills: ["Python", "Spark", "SQL", "Data Pipelines"],
-    industryDemand: "High",
-  },
-  {
-    trackId: "tr_devops_01",
-    title: "DevOps / Cloud Engineering",
-    domain: "Software Engineering",
-    keySkills: ["Docker", "Kubernetes", "AWS/GCP", "CI/CD"],
-    industryDemand: "High",
-  },
-];
+import careerTrack from "../models/careerTrackModel.js";
 
 export const getTracks = async (domain) => {
-  let results = [...careerTracks];
+  let results = await careerTrack.find({domain})
 
   if (domain) {
     const search = domain.toLowerCase().trim();
@@ -46,3 +17,39 @@ export const getTracks = async (domain) => {
     industryDemand,
   }));
 };
+
+async function createTrack({
+  trackId,
+  domain,
+  title,
+  keySkills,
+  industryDemand,
+}) {
+  if (!trackId || !title || !keySkills || !industryDemand || !domain) {
+    return res.status(401).json({
+      success: false,
+      message: "Include all fields",
+    });
+  }
+  const exist = await careerTrack.findOne({ trackId });
+
+  if (exist) {
+    return { success: false, message: "Track already exists" };
+  }
+
+  const industryDemandToLocalCase = industryDemand.toLowerCase();
+  const newTrack = await careerTrack.create({
+    trackId,
+    domain,
+    title,
+    keySkills,
+    industryDemand: industryDemandToLocalCase,
+  });
+
+  return {
+    success: true,
+    data: { trackId, title, domain, keySkills, industryDemand },
+  };
+}
+
+export {createTrack}

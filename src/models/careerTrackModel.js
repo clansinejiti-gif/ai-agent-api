@@ -11,6 +11,10 @@ const careerTrackSchema = new mongoose.Schema({
     type:String,
     required: true
   },
+  domain: {
+    type: String,
+    required: true,
+  },
   keySkills: [String],
   industryDemand: {
     required: true,
