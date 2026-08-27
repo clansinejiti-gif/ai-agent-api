@@ -6,6 +6,7 @@ import "dotenv/config";
 import sessionConfig from "./config/sessions.js";
 import { setupSwagger } from "../src/config/swagger.js";
 import booksRoutes from "../src/routes/booksRoutes.js";
+import careerRoutes from "./routes/careerRoutes.js";
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/books", booksRoutes);
 
 app.use("/api/v1/profiles", profileRoutes);
+
+app.use("/api/v1/careers", careerRoutes);
 
 app.use(errorHandler);
 
