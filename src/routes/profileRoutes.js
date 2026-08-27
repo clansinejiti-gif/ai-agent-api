@@ -82,6 +82,6 @@ router.get("/me", requireAuth, profileMe)
  *                     updatedAt: { type: string, format: date-time, example: "2026-08-23T11:26:00Z" }
  */
 
-router.patch("/me", requireAuth, profilePutMe )
+router.put("/me", requireAuth, profilePutMe )
 
 export default router;
