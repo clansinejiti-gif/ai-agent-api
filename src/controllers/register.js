@@ -5,10 +5,13 @@ const registerUser = async (req, res, next) => {
     const result = await registerNewUser(req.body);
 
     if (!result.success) {
-      return res.status(409).json("User not registered");
+      return res.status(409).json("User already exits");
     }
 
-    res.status(201).json("Account Created Successfully");
+    res.status(201).json({
+      success: true,
+      message: "Account Created Successfully",
+    });
     console.log(result);
   } catch (err) {
     console.error("register error:", err);

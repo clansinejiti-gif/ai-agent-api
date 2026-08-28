@@ -42,6 +42,7 @@ router.get("/me", requireAuth, profileMe)
 
 /**
  * @swagger
+ * /api/v1/profiles/me:
  *    put:
  *     summary: Update student profile
  *     tags: [Profiles]
