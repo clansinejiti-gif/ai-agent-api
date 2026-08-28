@@ -10,6 +10,7 @@ import careerRoutes from "./routes/careerRoutes.js";
 import aiRecommendationRoutes from "./routes/aiRecommendationRoutes.js";
 
 const app = express();
+app.set('trust proxy', 1)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

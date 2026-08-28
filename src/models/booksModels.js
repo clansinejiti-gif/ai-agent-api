@@ -1,29 +1,32 @@
 import mongoose from "mongoose";
 
-const booksSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
+const booksSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
     },
-  author: {
-    type: String,
-    required: true,
-    trim: true,
+    author: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    bookUrl: String,
+    category: {
+      type: String,
+      required: true,
+    },
+    skillLevel: {
+      type: String,
+    },
+    tags: [String],
+    publishedBy: String,
   },
-  category: {
-    type: String,
-    required: true,
+  {
+    timestamps: true,
   },
-  skillLevel: {
-    type: String,
-  },
-  tags: [String],
-  publishedBy: String,
-},
-{
-    timestamps: true
-});
+);
 
 booksSchema.index({ author: 1, title: 1, category: 1 });
 

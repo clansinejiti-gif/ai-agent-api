@@ -33,8 +33,8 @@ export const getBooks = async (req, res, next) => {
 
 export const postBooks = async (req, res, next) => {
   try {
-    const { title, author, category, skillLevel, tags } = req.body;
-    if (!title || !author || !category || !skillLevel || !tags) {
+    const { title, author, category, skillLevel, tags, bookUrl } = req.body;
+    if (!title || !author || !category || !skillLevel || !tags || !bookUrl) {
       return errorResponse(res, "Please fill in all fields");
     }
 
@@ -50,6 +50,7 @@ export const postBooks = async (req, res, next) => {
       category,
       skillLevel,
       tags,
+      bookUrl,
       publishedBy,
     });
     const data = { id: book._id, title: book.title };
