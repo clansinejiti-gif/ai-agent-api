@@ -1,9 +1,13 @@
-import { getTracks, createTrack } from "../services/careerService.js";
+import { getTracks, createTrack, getTracksWithNoDomain } from "../services/careerService.js";
 import { successResponse } from "../utils/responseFormatter.js";
 
 export const getCareerTracks = async (req, res, next) => {
   try {
     const { domain } = req.query;
+    if(!domain){
+      const tracks = await getTracksWithNoDomain();
+        return successResponse(res, tracks);
+    }
 
     const tracks = await getTracks(domain);
 

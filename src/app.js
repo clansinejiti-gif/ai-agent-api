@@ -8,9 +8,16 @@ import { setupSwagger } from "../src/config/swagger.js";
 import booksRoutes from "../src/routes/booksRoutes.js";
 import careerRoutes from "./routes/careerRoutes.js";
 import aiRecommendationRoutes from "./routes/aiRecommendationRoutes.js";
+import cors from 'cors';
+
 
 const app = express();
 app.set('trust proxy', 1)
+
+app.use(cors({
+    origin: process.env.CLIENT_ORIGIN,
+    credentials: true,
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

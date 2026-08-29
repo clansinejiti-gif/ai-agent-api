@@ -12,7 +12,7 @@ const registerUser = async (req, res, next) => {
       success: true,
       message: "Account Created Successfully",
     });
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     console.error("register error:", err);
     next(err);

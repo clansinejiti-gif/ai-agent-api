@@ -91,4 +91,28 @@ const profilePutMe = async (req, res, next) => {
   }
 };
 
-export { authMe, profileMe, profilePutMe };
+const allUsers = async (req, res, next) => {
+  try {
+    const result = await User.find();
+
+    if (!result) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Profiles not found" });
+    }
+    
+    if (req.session.role == "student") {
+      return res.status(403).json({ success: false, message: "Access Denied" });
+    }
+    res.status(200).json({
+      success: true,
+      data: result
+    });
+  } catch (err) {
+    console.error("login error:", err);
+    next(err);
+  }
+};
+
+
+export { authMe, profileMe, profilePutMe, allUsers };

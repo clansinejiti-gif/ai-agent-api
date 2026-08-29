@@ -18,6 +18,16 @@ export const getTracks = async (domain) => {
   }));
 };
 
+export const getTracksWithNoDomain = async (domain) => {
+  let results = await careerTrack.find();
+  return results.map(({ trackId, title, keySkills, industryDemand }) => ({
+    trackId,
+    title,
+    keySkills,
+    industryDemand,
+  }));
+};
+
 async function createTrack({
   trackId,
   domain,
