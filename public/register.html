@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create your account — AI Student Recommendation Engine</title>
+<meta name="description" content="Create a free student account to get personalized book and career recommendations." />
+<link rel="icon" href="assets/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#2C2560" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="auth-shell">
+  <aside class="auth-side">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"></span>
+      Advizor<span style="color:#A594FF">.ai</span>
+    </a>
+    <div class="auth-quote">
+      <p>“Tell us where you're headed. We'll help you find the shortest good path there.”</p>
+      <span>— The recommendation engine</span>
+    </div>
+    <div class="cc-mini card" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.14); padding:18px; border-radius:14px;">
+      <div style="font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#A594FF; margin-bottom:10px;">What you'll get</div>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:rgba(255,255,255,0.75);">
+        <span>✓ A profile that powers real recommendations</span>
+        <span>✓ A curated, filterable book catalog</span>
+        <span>✓ Career tracks matched to your goals</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="auth-form-wrap">
+    <div class="auth-form">
+      <div class="top-toggle">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="ti">☾</span></button>
+      </div>
+      <h1>Create your account</h1>
+      <p class="sub">Free for students. Set up your profile in under a minute.</p>
+
+      <form id="register-form" novalidate>
+        <div class="field" id="field-fullName">
+          <label for="fullName">Full name</label>
+          <input class="input" type="text" id="fullName" name="fullName" placeholder="Alex Morgan" autocomplete="name" required />
+          <span class="field-error"></span>
+        </div>
+        <div class="field" id="field-email">
+          <label for="email">Email address</label>
+          <input class="input" type="email" id="email" name="email" placeholder="you@university.edu" autocomplete="email" required />
+          <span class="field-error"></span>
+        </div>
+        <div class="field" id="field-password">
+          <label for="password">Password</label>
+          <div class="pw-toggle">
+            <input class="input" type="password" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password" required />
+            <button type="button">Show</button>
+          </div>
+          <div class="progress-bar" style="margin-top:6px;"><span id="pw-meter-fill" style="width:0%"></span></div>
+          <span class="hint" id="pw-meter-label"></span>
+          <span class="field-error"></span>
+        </div>
+
+        <!-- role is fixed to student — no UI control exposes admin signup -->
+        <input type="hidden" id="role" value="student" />
+
+        <label class="checkbox-row" style="margin-bottom:20px;">
+          <input type="checkbox" id="agree" />
+          I agree to the Terms of Service and Privacy Policy
+        </label>
+
+        <button class="btn btn-primary btn-block" type="submit" id="register-submit">
+          <span class="btn-label">Create account</span>
+          <svg class="spinner" width="16" height="16" viewBox="0 0 50 50" style="animation:spin 0.8s linear infinite"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="90 60"/></svg>
+        </button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="login.html">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>initRegisterPage();</script>
+</body>
+</html>

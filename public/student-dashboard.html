@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — Advizor.ai</title>
+<link rel="icon" href="assets/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#2C2560" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"></span>
+      Advizor<span style="color:#A594FF">.ai</span>
+    </a>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-label">Workspace</span>
+      <button class="nav-item active" data-view="overview"><span class="nav-ic">⌂</span> Overview</button>
+      <button class="nav-item" data-view="profile"><span class="nav-ic">◐</span> My profile</button>
+      <button class="nav-item" data-view="books"><span class="nav-ic">▤</span> Book catalog</button>
+      <button class="nav-item" data-view="careers"><span class="nav-ic">✺</span> Career tracks</button>
+      <button class="nav-item" data-view="ai"><span class="nav-ic">✦</span> AI recommendations</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" id="sb-avatar">--</div>
+        <div class="u-meta">
+          <div class="u-name" id="sb-name">Loading…</div>
+          <div class="u-role" id="sb-role">student</div>
+        </div>
+      </div>
+      <button class="nav-item logout-btn" id="logout-btn"><span class="nav-ic">⏻</span> Sign out</button>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <header class="topbar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="menu-toggle" aria-label="Open menu">☰</button>
+        <h1 id="topbar-title">Overview</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="ti">☾</span></button>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ============ OVERVIEW ============ -->
+      <section class="view active" id="view-overview">
+        <div class="view-head">
+          <div>
+            <h2 id="welcome-heading">Welcome back</h2>
+            <p>Here's a quick snapshot of your profile and next steps.</p>
+          </div>
+        </div>
+
+        <div class="grid-3" id="overview-stats">
+          <div class="card sk-stat skeleton"></div>
+          <div class="card sk-stat skeleton"></div>
+          <div class="card sk-stat skeleton"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid-2">
+          <div class="card catalog-card card-pad">
+            <h3 class="display-3" style="margin-bottom:6px;">Complete your profile</h3>
+            <p class="text-muted" style="font-size:13.5px; margin-bottom:16px;">A complete profile means sharper recommendations.</p>
+            <div class="progress-bar" style="margin-bottom:8px;"><span id="profile-progress-fill" style="width:0%"></span></div>
+            <span class="text-muted" id="profile-progress-label" style="font-size:12.5px;">Calculating…</span>
+            <div style="margin-top:16px;">
+              <button class="btn btn-subtle btn-sm" data-goto="profile">Edit profile →</button>
+            </div>
+          </div>
+          <div class="card catalog-card card-pad">
+            <h3 class="display-3" style="margin-bottom:6px;">Get your next recommendation</h3>
+            <p class="text-muted" style="font-size:13.5px; margin-bottom:16px;">Tell the AI engine your current focus area and goal.</p>
+            <button class="btn btn-primary btn-sm" data-goto="ai">Get recommendations →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROFILE ============ -->
+      <section class="view" id="view-profile">
+        <div class="view-head">
+          <div>
+            <h2>My profile</h2>
+            <p>This feeds directly into your AI recommendations.</p>
+          </div>
+        </div>
+        <div class="card card-pad" style="max-width:820px;">
+          <div id="profile-form-skeleton">
+            <div class="skeleton sk-line" style="width:100%"></div>
+            <div class="skeleton sk-line" style="width:80%"></div>
+            <div class="skeleton sk-line" style="width:90%"></div>
+            <div class="skeleton sk-line" style="width:60%"></div>
+          </div>
+          <form id="profile-form" class="profile-form-grid" style="display:none;">
+            <div class="field">
+              <label for="academicLevel">Academic level</label>
+              <div class="select-wrap">
+                <select class="input" id="academicLevel">
+                  <option>Undergraduate</option>
+                  <option>Graduate</option>
+                  <option>PhD</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="major">Major</label>
+              <input class="input" id="major" placeholder="Computer Science" />
+            </div>
+            <div class="field">
+              <label for="targetRole">Target role</label>
+              <input class="input" id="targetRole" placeholder="Backend Developer" />
+            </div>
+            <div class="field">
+              <label for="learningStyle">Learning style</label>
+              <div class="select-wrap">
+                <select class="input" id="learningStyle">
+                  <option>Project-Based</option>
+                  <option>Practical Project-Based</option>
+                  <option>Theory-First</option>
+                  <option>Visual</option>
+                </select>
+              </div>
+            </div>
+            <div class="field full">
+              <label>Skills</label>
+              <div class="tag-input-wrap" id="skills-wrap">
+                <input type="text" id="skills-input" placeholder="Type a skill and press Enter" />
+              </div>
+              <span class="hint">Press Enter or comma to add.</span>
+            </div>
+            <div class="field full">
+              <label>Preferred genres</label>
+              <div class="tag-input-wrap" id="genres-wrap">
+                <input type="text" id="genres-input" placeholder="Type a genre and press Enter" />
+              </div>
+              <span class="hint">e.g. System Design, Cloud Computing</span>
+            </div>
+            <div class="field full" style="display:flex; justify-content:flex-end; margin-top:6px;">
+              <button class="btn btn-primary" type="submit" id="profile-submit">
+                <span class="btn-label">Save changes</span>
+                <svg class="spinner" width="16" height="16" viewBox="0 0 50 50" style="animation:spin 0.8s linear infinite"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="90 60"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============ BOOKS ============ -->
+      <section class="view" id="view-books">
+        <div class="view-head">
+          <div>
+            <h2>Book catalog</h2>
+            <p>Search and filter the full recommendation catalog.</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="search-box"><input class="input" id="book-search" placeholder="Search by title or author…" /></div>
+          <div class="select-wrap filter-select">
+            <select class="input" id="book-category-filter"><option value="">All categories</option></select>
+          </div>
+          <div class="select-wrap filter-select">
+            <select class="input" id="book-skill-filter"><option value="">All levels</option></select>
+          </div>
+        </div>
+        <div id="books-container" class="book-grid">
+          <div class="card sk-card skeleton"></div>
+          <div class="card sk-card skeleton"></div>
+          <div class="card sk-card skeleton"></div>
+          <div class="card sk-card skeleton"></div>
+        </div>
+      </section>
+
+      <!-- ============ CAREERS ============ -->
+      <section class="view" id="view-careers">
+        <div class="view-head">
+          <div>
+            <h2>Career tracks</h2>
+            <p>Roadmaps and the skills each one requires.</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="search-box"><input class="input" id="career-domain-filter" placeholder="Filter by domain (e.g. Software Engineering)…" /></div>
+          <button class="btn btn-ghost btn-sm" id="career-domain-clear" type="button">Clear</button>
+        </div>
+        <div id="careers-container" class="grid-3">
+          <div class="card sk-card skeleton"></div>
+          <div class="card sk-card skeleton"></div>
+          <div class="card sk-card skeleton"></div>
+        </div>
+      </section>
+
+      <!-- ============ AI RECOMMENDATIONS ============ -->
+      <section class="view" id="view-ai">
+        <div class="view-head">
+          <div>
+            <h2>AI recommendations</h2>
+            <p>Tell the engine your focus and it'll assemble your context object.</p>
+          </div>
+        </div>
+        <div class="ai-layout">
+          <div class="card card-pad">
+            <form id="ai-form">
+              <div class="field">
+                <label for="focusArea">Focus area</label>
+                <input class="input" id="focusArea" placeholder="System Design" required />
+              </div>
+              <div class="field">
+                <label for="timeCommitment">Hours per week</label>
+                <input class="input" id="timeCommitment" type="number" min="1" max="80" placeholder="10" required />
+              </div>
+              <div class="field">
+                <label for="primaryGoal">Primary goal</label>
+                <textarea class="input" id="primaryGoal" rows="3" placeholder="Prepare for junior backend developer interviews" required></textarea>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit" id="ai-submit">
+                <span class="btn-label">Generate recommendations</span>
+                <svg class="spinner" width="16" height="16" viewBox="0 0 50 50" style="animation:spin 0.8s linear infinite"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="90 60"/></svg>
+              </button>
+            </form>
+          </div>
+          <div id="ai-result" class="card card-pad">
+            <div class="ai-result-empty empty-state">
+              <div class="es-icon">✦</div>
+              <h4>No recommendations yet</h4>
+              <p>Fill in the form and generate your first AI-matched reading list and career step.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/student.js"></script>
+</body>
+</html>

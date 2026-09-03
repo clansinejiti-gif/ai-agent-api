@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Advizor.ai</title>
+<link rel="icon" href="assets/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#2C2560" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark"></span>
+      Advizor<span style="color:#A594FF">.ai</span>
+    </a>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-label">Admin</span>
+      <button class="nav-item active" data-view="overview"><span class="nav-ic">⌂</span> Overview</button>
+      <button class="nav-item" data-view="books"><span class="nav-ic">▤</span> Manage books</button>
+      <button class="nav-item" data-view="careers"><span class="nav-ic">✺</span> Career tracks</button>
+      <button class="nav-item" data-view="students"><span class="nav-ic">◐</span> Students</button>
+      <button class="nav-item" data-view="analytics"><span class="nav-ic">⌗</span> Analytics</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar" id="sb-avatar">--</div>
+        <div class="u-meta">
+          <div class="u-name" id="sb-name">Loading…</div>
+          <div class="u-role" id="sb-role">admin</div>
+        </div>
+      </div>
+      <button class="nav-item logout-btn" id="logout-btn"><span class="nav-ic">⏻</span> Sign out</button>
+    </div>
+  </aside>
+
+  <div class="main-col">
+    <header class="topbar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="menu-toggle" aria-label="Open menu">☰</button>
+        <h1 id="topbar-title">Overview</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="ti">☾</span></button>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ============ OVERVIEW ============ -->
+      <section class="view active" id="view-overview">
+        <div class="view-head">
+          <div>
+            <h2 id="welcome-heading">Welcome back</h2>
+            <p>A snapshot of the platform's content and activity.</p>
+          </div>
+        </div>
+        <div class="grid-4" id="admin-stats">
+          <div class="card sk-stat skeleton"></div>
+          <div class="card sk-stat skeleton"></div>
+          <div class="card sk-stat skeleton"></div>
+          <div class="card sk-stat skeleton"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card catalog-card card-pad">
+          <h3 class="display-3" style="margin-bottom:14px;">Recent activity</h3>
+          <ul id="recent-activity"></ul>
+        </div>
+      </section>
+
+      <!-- ============ MANAGE BOOKS ============ -->
+      <section class="view" id="view-books">
+        <div class="view-head">
+          <div>
+            <h2>Manage books</h2>
+            <p>Everything in the recommendation catalog.</p>
+          </div>
+          <button class="btn btn-primary" id="add-book-btn">+ Add book</button>
+        </div>
+        <div class="card table-card">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Title</th><th>Author</th><th>Category</th><th>Level</th><th>Tags</th></tr></thead>
+              <tbody id="books-table-body">
+                <tr><td colspan="5"><div class="skeleton sk-row"></div></td></tr>
+                <tr><td colspan="5"><div class="skeleton sk-row"></div></td></tr>
+                <tr><td colspan="5"><div class="skeleton sk-row"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MANAGE CAREER TRACKS ============ -->
+      <section class="view" id="view-careers">
+        <div class="view-head">
+          <div>
+            <h2>Manage career tracks</h2>
+            <p>Roadmaps students can follow.</p>
+          </div>
+          <button class="btn btn-primary" id="add-track-btn">+ Add track</button>
+        </div>
+        <div class="card table-card">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>track Id</th><th>Title</th><th>Key skills</th><th>Demand</th></tr></thead>
+              <tbody id="tracks-table-body">
+                <tr><td colspan="4"><div class="skeleton sk-row"></div></td></tr>
+                <tr><td colspan="4"><div class="skeleton sk-row"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STUDENTS ============ -->
+      <section class="view" id="view-students">
+        <div class="view-head">
+          <div>
+            <h2>Students</h2>
+            <p>Everyone registered on the platform.</p>
+          </div>
+        </div>
+        <div class="card table-card">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Email</th><th>Target role</th><th>Major</th></tr></thead>
+              <tbody id="students-table-body">
+                <tr><td colspan="4"><div class="skeleton sk-row"></div></td></tr>
+                <tr><td colspan="4"><div class="skeleton sk-row"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ANALYTICS ============ -->
+      <section class="view" id="view-analytics">
+        <div class="view-head">
+          <div>
+            <h2>Analytics</h2>
+            <p>Catalog composition at a glance.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card catalog-card card-pad">
+            <h3 class="display-3" style="margin-bottom:16px;">Books by category</h3>
+            <div id="chart-category"></div>
+          </div>
+          <div class="card catalog-card card-pad">
+            <h3 class="display-3" style="margin-bottom:16px;">Books by skill level</h3>
+            <div id="chart-skill"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ ADD BOOK MODAL ============ -->
+<div class="modal-overlay" id="book-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Add a book</h3>
+      <button class="modal-close" data-close-modal="book-modal">✕</button>
+    </div>
+    <form id="book-form">
+      <div class="field"><label for="b-title">Title</label><input class="input" id="b-title" required /></div>
+      <div class="field"><label for="b-author">Author</label><input class="input" id="b-author" required /></div>
+      <div class="field"><label for="b-category">Category</label><input class="input" id="b-category" placeholder="Backend" required /></div>
+      <div class="field">
+        <label for="b-level">Skill level</label>
+        <div class="select-wrap">
+          <select class="input" id="b-level">
+            <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="b-url">Book URL</label><input class="input" id="b-url" type="url" placeholder="https://…" /></div>
+      <div class="field"><label for="b-tags">Tags (comma separated)</label><input class="input" id="b-tags" placeholder="architecture, databases" /></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal="book-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="book-submit">
+          <span class="btn-label">Add book</span>
+          <svg class="spinner" width="16" height="16" viewBox="0 0 50 50" style="animation:spin 0.8s linear infinite"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="90 60"/></svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ ADD TRACK MODAL ============ -->
+<div class="modal-overlay" id="track-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Add a career track</h3>
+      <button class="modal-close" data-close-modal="track-modal">✕</button>
+    </div>
+    <form id="track-form">
+      <div class="field"><label for="t-trackId">Track Id</label><input class="input" id="t-trackId" placeholder="tr_backend_01" required /></div>
+      <div class="field"><label for="t-title">Title</label><input class="input" id="t-title" placeholder="Backend Engineering" required /></div>
+      <div class="field"><label for="t-domain">Domain</label><input class="input" id="t-domain" placeholder="Software Engineering" /></div>
+      <div class="field"><label for="t-skills">Key skills (comma separated)</label><input class="input" id="t-skills" placeholder="Node.js, SQL/NoSQL, System Design" required /></div>
+      <div class="field">
+        <label for="t-demand">Industry demand</label>
+        <div class="select-wrap">
+          <select class="input" id="t-demand"><option>High</option><option>Medium</option><option>Low</option></select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal="track-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="track-submit">
+          <span class="btn-label">Add track</span>
+          <svg class="spinner" width="16" height="16" viewBox="0 0 50 50" style="animation:spin 0.8s linear infinite"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="90 60"/></svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
