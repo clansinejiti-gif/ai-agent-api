@@ -1,24 +1,37 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const recommendationSchema = new mongoose.Schema({
-  focusArea: {
-    type: String,
-    required: true,
-    trim: true,
+const recommendationSchema = new mongoose.Schema(
+  {
+    recommendationId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    focusArea: String,
+    timeCommitmentHoursPerWeek: Number,
+    primaryGoal: String,
+    studentSummary: {
+      major: String,
+      targetRole: String,
+    },
+    recommendedBooks: [
+      {
+        id: String,
+        title: String,
+        matchReason: String,
+      },
+    ],
+    careerAdvice: {
+      focusArea: String,
+      roadmapStep: String,
+    },
   },
-  timeCommitmentHoursPerWeek: {
-    type:Number,
-    min: 0,
-    max: 126,
-    default: 1
-  },
-  primaryGoal: {
-    type: String,
-    required: true,
-  },
-},
-{
-    timestamps: true
-});
+  { timestamps: true }
+);
 
-export default mongoose.model("Recommendation", recommendationSchema)
+export default mongoose.model('Recommendation', recommendationSchema);

@@ -1,3 +1,6 @@
 .env 
 node_modules/
 src/controllers/manageBooksControllers.js
+
+seed.js
+career_tracks_seed.json

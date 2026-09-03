@@ -1,6 +1,9 @@
-import {Router} from 'express';
+import { Router } from 'express';
+import { generateRecommendations } from '../controllers/aiController.js';
+import requireAuth from '../middlewares/authMiddleware.js';
 
-const router = Router()
+const router = Router();
+
 
 /**
  * @swagger
@@ -53,11 +56,7 @@ const router = Router()
  *                         focusArea: { type: string, example: System Design }
  *                         roadmapStep: { type: string, example: Focus on database indexing, distributed systems, and caching strategies over the next 4 weeks. }
  */
-router.post('/', (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Under Development"
-    })
-})
+
+router.post('/',requireAuth, generateRecommendations);
 
 export default router
