@@ -19,7 +19,7 @@ const app = express();
 app.set('trust proxy', 1)
 
 app.use(cors({
-    origin: true, //process.env.CLIENT_ORIGIN,
+    origin: process.env.CLIENT_ORIGIN,
     credentials: true,
 }));
 
