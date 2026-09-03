@@ -305,6 +305,11 @@ function wireAiForm() {
       renderEmpty(resultBox, "✦", "Something went wrong", "We couldn't generate recommendations. Please try again.");
       return;
     }
+    if (res.data.limit) {
+      renderEmpty(resultBox, "✦", "Daily limit reached. You can only create 2 recommendations per day. Try again tomorrow.");
+      toast.success("Daily limit reached", "");
+      return;
+    }
     renderAiResult(res.data);
     toast.success("Recommendations ready", "Your personalized plan is in.");
   });

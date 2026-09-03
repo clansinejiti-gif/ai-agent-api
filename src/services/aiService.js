@@ -10,11 +10,31 @@ export const createRecommendation = async (email, input) => {
   const profile = await User.findOne({ email });
   if (!profile) {
     return {
-    message: "Student profile not found please complete your profile first."
-  };
+      message: "Student profile not found please complete your profile first."
+    };
   }
 
-  // 2. Find matching books
+  // 2. NEW: Check daily limit (2 per day)
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+  
+  const endOfDay = new Date();
+  endOfDay.setHours(23, 59, 59, 999);
+
+  const todayCount = await Recommendation.countDocuments({
+    userId: profile._id,
+    createdAt: { $gte: startOfDay, $lte: endOfDay }
+  });
+
+  if (todayCount >= 2) {
+    return {
+      message: "Daily limit reached. You can only create 2 recommendations per day. Try again tomorrow.",
+      limit: 2,
+      used: todayCount
+    };
+  }
+
+  // 3. Find matching books
   const books = await Books.find({
     $or: [
       { category: { $regex: focusArea, $options: 'i' } },
@@ -22,6 +42,7 @@ export const createRecommendation = async (email, input) => {
       { title: { $regex: focusArea, $options: 'i' } },
     ],
   }).limit(5);
+
 
   const recommendedBooks = books.map((book) => ({
     id: book._id.toString(),
