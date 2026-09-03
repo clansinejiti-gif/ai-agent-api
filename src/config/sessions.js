@@ -9,7 +9,8 @@ const sessionConfig = session({
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.DB_URI,
-        collectionName: 'sessions',
+      collectionName: 'sessions',
+        ttl: 2*24*60*60*1000,
     }),
     cookie: {
         maxAge: 7*24*60*60*1000,
