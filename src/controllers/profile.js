@@ -65,13 +65,6 @@ const profileMe = async (req, res, next) => {
 
 const profilePutMe = async (req, res, next) => {
   try {
-    if (req.session.role !== "student") {
-      return res.status(403).json({
-        success: false,
-        error: { code: "FORBIDDEN", message: "Access Denied" },
-      });
-    }
-
     const result = await updateProfile(req.session.userId, req.body);
 
     if (!result.success) {

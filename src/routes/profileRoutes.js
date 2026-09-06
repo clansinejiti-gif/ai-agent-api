@@ -1,6 +1,7 @@
 import express from "express";
 import { profileMe, profilePutMe } from "../controllers/profile.js";
 import requireAuth from "../middlewares/authMiddleware.js";
+import { roleCheck } from "../middlewares/roleChecker.js";
 
 const router = express.Router();
 
@@ -83,6 +84,6 @@ router.get("/me", requireAuth, profileMe)
  *                     updatedAt: { type: string, format: date-time, example: "2026-08-23T11:26:00Z" }
  */
 
-router.put("/me", requireAuth, profilePutMe )
+router.put("/me", roleCheck('student'), profilePutMe )
 
 export default router;

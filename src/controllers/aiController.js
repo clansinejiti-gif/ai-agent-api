@@ -2,11 +2,7 @@ import { createRecommendation } from '../services/aiService.js';
 import { successResponse } from '../utils/responseFormatter.js';
 
 export const generateRecommendations = async (req, res, next) => {
-  try {
-    if (req.session.role === 'admin') {
-          return errorResponse(res, "Only students are allowed");
-        }
-        
+  try {        
     const email = req.session.email;
     const { focusArea, timeCommitmentHoursPerWeek, primaryGoal } = req.body;
 

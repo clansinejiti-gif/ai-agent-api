@@ -80,6 +80,6 @@ router.get('/', requireAuth, getBooks)
  *         description: Forbidden (Admin only)
  */
 
-router.post("/", roleCheck, postBooks);
+router.post("/", roleCheck("admin"), postBooks);
 
 export default router

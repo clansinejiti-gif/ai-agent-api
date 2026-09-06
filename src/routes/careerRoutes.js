@@ -43,6 +43,6 @@ const router = Router();
  */
 router.get("/tracks", requireAuth, getCareerTracks);
 
-router.post('/tracks', roleCheck, registerTrack)
+router.post('/tracks', roleCheck('admin'), registerTrack)
 
 export default router;

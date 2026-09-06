@@ -5,6 +5,7 @@ import { logout } from "../controllers/logout.js";
 import { allUsers, authMe } from "../controllers/profile.js";
 import requireAuth from "../middlewares/authMiddleware.js";
 import { authLimiter } from "../middlewares/rateLimitermiddleware.js";
+import { roleCheck } from "../middlewares/roleChecker.js";
 
 const router = express.Router();
 
@@ -119,6 +120,6 @@ router.post("/logout", logout);
 
 router.get('/me', requireAuth, authMe)
 
-router.get("/users", requireAuth, allUsers);
+router.get("/users", roleCheck('admin'), allUsers);
 
 export default router;

@@ -1,7 +1,22 @@
-import { errorResponse } from "../utils/responseFormatter.js"
-export const roleCheck = (req, res, next) => {
-    if (req.session.role && req.session.role === 'admin' && req.session.userId) {
-      return next();
+import { errorResponse } from "../utils/responseFormatter.js";
+
+export const roleCheck = (...allowedRoles) => {
+  return (req, res, next) => {
+    const userRole = req.session?.role;
+    const userId = req.session?.userId;
+
+    if (!userId || !userRole) {
+      return errorResponse(res, "Not authenticated, please login", 401);
     }
-    return errorResponse(res)
-}
+
+    if (!allowedRoles.includes(userRole)) {
+      return errorResponse(
+        res,
+        `Forbidden role`,
+        403,
+      );
+    }
+
+    return next();
+  };
+};
