@@ -11,6 +11,7 @@ import aiRecommendationRoutes from "./routes/aiRecommendationRoutes.js";
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { generalLimiter } from "./middlewares/rateLimitermiddleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,7 +30,9 @@ app.use(sessionConfig);
 
 setupSwagger(app);
 
-// --- API ROUTES (keep these BEFORE static) ---
+app.use(generalLimiter)
+
+// API routes keep these before static
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/books", booksRoutes);
 app.use("/api/v1/profiles", profileRoutes);

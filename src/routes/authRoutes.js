@@ -4,6 +4,7 @@ import { login } from "../controllers/login.js";
 import { logout } from "../controllers/logout.js";
 import { allUsers, authMe } from "../controllers/profile.js";
 import requireAuth from "../middlewares/authMiddleware.js";
+import { authLimiter } from "../middlewares/rateLimitermiddleware.js";
 
 const router = express.Router();
 
@@ -67,7 +68,7 @@ router.post("/register", registerUser);
  *         description: Invalid credentials
  */
 
-router.post("/login", login);
+router.post("/login", authLimiter,login);
 
 /**
  * @swagger
