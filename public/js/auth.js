@@ -98,7 +98,12 @@ function initLoginPage() {
     } catch (err) {
       if (err instanceof ApiError && err.status === 401) {
         setFieldError(pwField, "Incorrect email or password.");
-      } else {
+      } if (err instanceof ApiError && err.status === 429) {
+        toast.error(
+          "Sign-in failed",
+          "Too many login attempts. Try again in 15 minutes.",
+        );
+      }else {
         toast.error("Sign-in failed", err.message || "Please try again.");
       }
     } finally {
