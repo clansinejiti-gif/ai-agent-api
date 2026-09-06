@@ -2,6 +2,8 @@ import {Router} from 'express';
 import { getBooks, postBooks } from '../controllers/booksControllers.js';
 import { roleCheck } from '../middlewares/roleChecker.js';
 import requireAuth from '../middlewares/authMiddleware.js'
+import { validate } from '../middlewares/validateMiddleware.js';
+import { createBookSchema } from '../validator/booksValidator.js';
 
 const router = Router();
 
@@ -80,6 +82,6 @@ router.get('/', requireAuth, getBooks)
  *         description: Forbidden (Admin only)
  */
 
-router.post("/", roleCheck("admin"), postBooks);
+router.post("/", validate(createBookSchema) ,roleCheck("admin"), postBooks);
 
 export default router

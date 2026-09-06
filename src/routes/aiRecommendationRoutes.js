@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { generateRecommendations } from '../controllers/aiController.js';
 import requireAuth from '../middlewares/authMiddleware.js';
 import { roleCheck } from '../middlewares/roleChecker.js';
+import { validate } from '../middlewares/validateMiddleware.js';
+import { studentRecommendationSchema } from '../validator/recommendationValidator';
 
 const router = Router();
 
@@ -58,6 +60,6 @@ const router = Router();
  *                         roadmapStep: { type: string, example: Focus on database indexing, distributed systems, and caching strategies over the next 4 weeks. }
  */
 
-router.post('/',requireAuth, roleCheck('student'),generateRecommendations);
+router.post('/',validate(studentRecommendationSchema),requireAuth, roleCheck('student'),generateRecommendations);
 
 export default router

@@ -35,7 +35,7 @@ export const postBooks = async (req, res, next) => {
   try {
     const { title, author, category, skillLevel, tags, bookUrl } = req.body;
     if (!title || !author || !category || !skillLevel || !tags || !bookUrl) {
-      return errorResponse(res, "Please fill in all fields");
+      return errorResponse(res, "Please fill in all fields",204);
     }
 
     const exists = await checkBookExistsService(title, author, category);
@@ -54,7 +54,7 @@ export const postBooks = async (req, res, next) => {
       publishedBy,
     });
     const data = { id: book._id, title: book.title };
-    successResponse(res, data);
+    successResponse(res, data, 201);
   } catch (err) {
     errorResponse(res, "Something went wrong");
     next(err)

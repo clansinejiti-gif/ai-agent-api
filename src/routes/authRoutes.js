@@ -6,6 +6,8 @@ import { allUsers, authMe } from "../controllers/profile.js";
 import requireAuth from "../middlewares/authMiddleware.js";
 import { authLimiter } from "../middlewares/rateLimitermiddleware.js";
 import { roleCheck } from "../middlewares/roleChecker.js";
+import { validate } from  "../middlewares/validateMiddleware.js";
+import { registerSchema } from "../validator/authValidator.js";
 
 const router = express.Router();
 
@@ -42,7 +44,7 @@ const router = express.Router();
  *         description: User already exists
  */
 
-router.post("/register", registerUser);
+router.post("/register",validate(registerSchema), registerUser);
 
 /**
  * @swagger
@@ -69,7 +71,7 @@ router.post("/register", registerUser);
  *         description: Invalid credentials
  */
 
-router.post("/login", authLimiter,login);
+router.post("/login", validate(registerSchema), authLimiter, login);
 
 /**
  * @swagger

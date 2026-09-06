@@ -2,6 +2,8 @@ import { Router } from "express";
 import { getCareerTracks, registerTrack } from "../controllers/careerController.js";
 import requireAuth from "../middlewares/authMiddleware.js";
 import { roleCheck } from "../middlewares/roleChecker.js";
+import { validate } from "../middlewares/validateMiddleware.js";
+import { createCareerTrackSchema } from "../validator/careerValidator.js";
 
 const router = Router();
 
@@ -43,6 +45,6 @@ const router = Router();
  */
 router.get("/tracks", requireAuth, getCareerTracks);
 
-router.post('/tracks', roleCheck('admin'), registerTrack)
+router.post('/tracks', validate(createCareerTrackSchema), roleCheck('admin'), registerTrack)
 
 export default router;
