@@ -14,7 +14,7 @@ export const registerSchema = z.object({
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters long" })
-    .max(15, { message: "Password must be at most 15 characters long" })
+    .max(21, { message: "Password must be at most 21 characters long" })
     .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter" })
     .regex(/[0-9]/, { message: "Password must contain at least one number" })
     .regex(/[^A-Za-z0-9]/, { message: "Password must contain at least one special character" }) // optional but recommended
@@ -26,7 +26,7 @@ export const loginSchema = z.object({
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters long" })
-    .max(15, { message: "Password must be at most 15 characters long" })
+    .max(21, { message: "Password must be at most 21 characters long" })
     .regex(/[A-Z]/, {
       message: "Password must contain at least one uppercase letter",
     })
