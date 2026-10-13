@@ -7,7 +7,7 @@ import requireAuth from "../middlewares/authMiddleware.js";
 import { authLimiter } from "../middlewares/rateLimitermiddleware.js";
 import { roleCheck } from "../middlewares/roleChecker.js";
 import { validate } from  "../middlewares/validateMiddleware.js";
-import { registerSchema } from "../validator/authValidator.js";
+import { loginSchema, registerSchema } from "../validator/authValidator.js";
 
 const router = express.Router();
 
@@ -71,7 +71,7 @@ router.post("/register",validate(registerSchema), registerUser);
  *         description: Invalid credentials
  */
 
-router.post("/login", validate(registerSchema), authLimiter, login);
+router.post("/login", validate(loginSchema), authLimiter, login);
 
 /**
  * @swagger
