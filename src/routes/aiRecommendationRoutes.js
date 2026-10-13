@@ -3,7 +3,7 @@ import { generateRecommendations } from '../controllers/aiController.js';
 import requireAuth from '../middlewares/authMiddleware.js';
 import { roleCheck } from '../middlewares/roleChecker.js';
 import { validate } from '../middlewares/validateMiddleware.js';
-import { studentRecommendationSchema } from '../validator/recommendationValidator';
+import { studentRecommendationSchema } from '../validator/recommendationValidator.js';
 
 const router = Router();
 
